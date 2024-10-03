@@ -1,0 +1,33 @@
+plugins {
+    alias(libs.plugins.springBoot)
+    alias(libs.plugins.dependencyManagement)
+    alias(libs.plugins.gitProps)
+}
+
+
+sourceCompatibility = JavaVersion.VERSION_17
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.security:spring-security-test'
+    implementation (libs.validationApi)
+    implementation (libs.assertjCore)
+    implementation 'net.datafaker:datafaker:2.4.0'
+    
+    annotationProcessor (libs.lombok)
+}
+bootJar {
+    enabled = false
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
